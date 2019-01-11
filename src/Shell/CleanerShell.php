@@ -302,18 +302,22 @@ class CleanerShell extends Shell
     private function removeBake()
     {
         $dir = TMP . 'bake';
-        foreach (new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::CHILD_FIRST
-        ) as $path) {
-            if ($path->isFile()) {
-                $res = new File($path->getPathname(), false);
-                $res->delete();
-                $res->close();
-                $this->out($path->getPathname());
+        if (file_exists($dir)) {
+            foreach (new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
+                RecursiveIteratorIterator::CHILD_FIRST
+            ) as $path) {
+                if ($path->isFile()) {
+                    $res = new File($path->getPathname(), false);
+                    $res->delete();
+                    $res->close();
+                    $this->out($path->getPathname());
+                }
             }
+            $this->success('Bake deleted!');
+        } else {
+            $this->warn('Bake directory does not exists!');
         }
-        $this->success('Bake deleted!');
     }
 
     /**
