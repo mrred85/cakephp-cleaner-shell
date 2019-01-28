@@ -131,13 +131,11 @@ class CleanerShell extends Shell
             new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
             RecursiveIteratorIterator::CHILD_FIRST
         ) as $path) {
-            if ($path->isFile()) {
-                if ($path->getFilename() == '.DS_Store') {
-                    $res = new File($path->getPathname(), false);
-                    $res->delete();
-                    $res->close();
-                    $this->out($path->getPathname());
-                }
+            if ($path->isFile() && $path->getFilename() == '.DS_Store') {
+                $res = new File($path->getPathname(), false);
+                $res->delete();
+                $res->close();
+                $this->out($path->getPathname());
             }
         }
         $this->success('DS files deleted!');
@@ -155,13 +153,11 @@ class CleanerShell extends Shell
             new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
             RecursiveIteratorIterator::CHILD_FIRST
         ) as $path) {
-            if ($path->isFile()) {
-                if (strstr($path->getFilename(), '._')) {
-                    $res = new File($path->getPathname(), false);
-                    $res->delete();
-                    $res->close();
-                    $this->out($path->getPathname());
-                }
+            if ($path->isFile() && strpos($path->getFilename(), '._') === 0) {
+                $res = new File($path->getPathname(), false);
+                $res->delete();
+                $res->close();
+                $this->out($path->getPathname());
             }
         }
         $this->success('Dot files deleted!');
@@ -179,13 +175,11 @@ class CleanerShell extends Shell
             new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
             RecursiveIteratorIterator::CHILD_FIRST
         ) as $path) {
-            if ($path->isFile()) {
-                if ($path->getFilename() == 'empty') {
-                    $res = new File($path->getPathname(), false);
-                    $res->delete();
-                    $res->close();
-                    $this->out($path->getPathname());
-                }
+            if ($path->isFile() && $path->getFilename() == 'empty') {
+                $res = new File($path->getPathname(), false);
+                $res->delete();
+                $res->close();
+                $this->out($path->getPathname());
             }
         }
         $this->success('Empty files deleted!');
