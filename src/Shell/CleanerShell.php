@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Cleaner Shell
  *
@@ -188,7 +189,7 @@ class CleanerShell extends Shell
     /**
      * Remove files from "tmp/cache" folder
      *
-     * @param null|string $path Cache path
+     * @param string|null $path Cache path
      * @return void
      */
     private function removeCache($path = null)
